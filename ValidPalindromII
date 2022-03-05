@@ -1,0 +1,19 @@
+class Solution(object):
+    def validPalindrome(self, s):
+        """
+        :type s: str
+        :rtype: bool
+        """
+        return self.isValidPalindromeAfterRemoval(s,0,len(s)-1)
+    
+    def isValidPalindromeAfterRemoval(self,s,i,j,is_removed = False):
+        while i < j:
+            if s[i] != s[j]:
+                if is_removed:
+                    return False
+                
+                return self.isValidPalindromeAfterRemoval(s,i+1,j,True) or self.isValidPalindromeAfterRemoval(s,i,j-1,True)
+            
+            i,j = i + 1, j - 1
+            
+        return True
