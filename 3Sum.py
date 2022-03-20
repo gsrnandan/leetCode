@@ -58,3 +58,26 @@ class Solution(object):
                    # result.append([nums[i], nums[sunOfPairs[key][0]], nums[sunOfPairs[key][1]]])
         
         return result
+    *********************************************************************************************************
+    
+    class Solution(object):
+    def threeSum(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: List[List[int]]
+        """
+        sunOfPairs = {}
+        result = []
+        val = 0
+        nums.sort()
+        for i in range(len(nums)):
+            seen = set()
+            for j in range(i+1, len(nums)):
+                sum_i_j = -nums[i] - nums[j]
+                if sum_i_j in seen:
+                    #if nums.index(sum_i_j) != i and nums.index(sum_i_j) != j:
+                    if sorted([sum_i_j, nums[i], nums[j]]) not in result:
+                        result.append(sorted([sum_i_j, nums[i], nums[j]]))
+                seen.add(nums[j])
+        return result
+        
