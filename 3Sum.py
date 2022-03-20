@@ -24,3 +24,37 @@ class Solution(object):
       ******************************************************************************************************************************
       
       
+class Solution(object):
+    def threeSum(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: List[List[int]]
+        """
+        sunOfPairs = {}
+        result = []
+        val = 0
+        for i in range(len(nums)):
+            for j in range(i, len(nums)):
+                if i == j:
+                    continue
+                sum_i_j = nums[i] + nums[j] 
+                if sum_i_j in sunOfPairs:
+                    sunOfPairs[sum_i_j].append((i, j))
+                else:
+                    sunOfPairs[sum_i_j] = [(i, j)]
+        
+        print("sunOfPairs", sunOfPairs)
+        
+        for i in range(len(nums)):
+            key = val - nums[i]
+            print("key", val - key)
+            if key in sunOfPairs.keys():
+                indicesPair = sunOfPairs[key]
+                for indices in indicesPair:
+                    if i != indices[0] and i != indices[1]:
+                        print("indices", nums[indices[0]], nums[indices[1]])
+                        if sorted([nums[i], nums[indices[0]], nums[indices[1]]]) not in result:
+                            result.append(sorted([nums[i], nums[indices[0]], nums[indices[1]]]))
+                   # result.append([nums[i], nums[sunOfPairs[key][0]], nums[sunOfPairs[key][1]]])
+        
+        return result
