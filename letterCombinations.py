@@ -39,3 +39,48 @@ class Solution(object):
             
         
         return res
+    
+ **************************************Recursion****************************************
+
+class Solution(object):
+    def letterCombinations(self, digits):
+        """
+        :type digits: str
+        :rtype: List[str]
+        """
+        
+        dp = {'2' : ["a", "b", "c"],
+              '3' : ["d", "e", "f"],
+              '4' : ["g", "h", "i"],
+              '5' : ["j", "k", "l"],
+              '6' : ["m", "n", "o"],
+              '7' : ["p", "q", "r", "s"],
+              '8' : ["t", "u", "v"],
+              '9' : ["w", "x", "y", "z"],
+        }
+        
+        result = []
+        
+        if len(digits) == 1:
+            return dp[digits[0]]
+        
+        if not digits:
+            return []
+        
+        def adds(a, b):
+            return a+b    
+        
+        def perms(ind, res):
+            if ind < 0:
+                return res
+            digit = digits[ind]
+            if not res:
+                inres = dp[digit]
+            else:
+                inres = []
+                for i in dp[digit]:
+                    for j in res:
+                        inres.append(adds(i, j))
+            return perms(ind-1, inres)
+        
+        return perms(len(digits)-1, [])
